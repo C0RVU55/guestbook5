@@ -4,8 +4,7 @@
 
 <mapper namespace="guestbook">
 	
-	
-	<select id="selectList" resultType="com.javaex.vo.GuestVo">
+	<select id="selectList" resultType="GuestVo"> <!-- alias 적용 -->
 		<![CDATA[ 
 			SELECT  no,
 			        name,
@@ -18,7 +17,7 @@
 	</select>
 	
 	<!-- dao에서는 contentAdd() -->
-	<insert id="insert" parameterType="com.javaex.vo.GuestVo"> 
+	<insert id="insert" parameterType="GuestVo"> 
 		<![CDATA[ 
 			insert into guestbook
 			VALUES(seq_no.nextval, 
@@ -30,7 +29,46 @@
 	</insert>
 	
 	<!-- dao에서는 contentDelete() -->
-	<delete id="delete" parameterType="com.javaex.vo.GuestVo">
+	<delete id="delete" parameterType="GuestVo">
+		<![CDATA[ 
+			delete from guestbook
+			where no = #{no}
+			and password = #{password}
+		]]>
+	</delete>
+	
+	
+	<!-- ///////////////////Map 적용//////////////////// -->
+	
+	
+	<!-- 리스트
+	<select id="selectList2" resultType="map">
+		<![CDATA[ 
+			SELECT  no,
+			        name,
+			        password,
+			        content,
+			        to_char(reg_date, 'YYYY-MM-DD HH24:MI:SS') reg_date
+			FROM guestbook
+			order by no desc
+		]]>
+	</select>
+	 -->
+	
+	<!-- dao에서는 contentAdd2() -->
+	<insert id="insert2" parameterType="map"> 
+		<![CDATA[ 
+			insert into guestbook
+			VALUES(seq_no.nextval, 
+			       #{name}, 
+			       #{password}, 
+			       #{content}, 
+			       sysdate)
+		]]>
+	</insert>
+	
+	<!-- dao에서는 contentDelete2() -->
+	<delete id="delete2" parameterType="map">
 		<![CDATA[ 
 			delete from guestbook
 			where no = #{no}

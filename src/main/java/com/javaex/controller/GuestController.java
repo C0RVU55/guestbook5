@@ -1,6 +1,7 @@
 package com.javaex.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -69,4 +70,50 @@ public class GuestController {
 		
 		return "redirect:/guest/list";
 	}
+	
+	
+	///////////////////Map 적용////////////////////
+	
+	
+	/* 리스트는 불가능 --> Dao에 설명
+	@RequestMapping(value="/list2", method= {RequestMethod.GET, RequestMethod.POST})
+	public String list2(Model model) {
+		System.out.println("list2");
+		Map<String, Object> guestMap = gDao.getList2();
+		
+		model.addAttribute("gMap", guestMap);
+		
+		return "addList";
+	}
+	*/
+	
+	//등록2 (테스트O)
+	@RequestMapping(value="/add2", method= {RequestMethod.GET, RequestMethod.POST})
+	public String add2(@RequestParam("name") String name,
+					@RequestParam("password") String password,
+					@RequestParam("content") String content) {
+		System.out.println("add2");
+		System.out.println("컨트롤러 add2 : "+name+" "+password+" "+content);
+		
+		gDao.contentAdd2(name, password, content);
+		
+		return "redirect:/guest/list";
+	}
+	
+	//삭제2 (테스트O)
+	@RequestMapping(value="/delete2", method= {RequestMethod.GET, RequestMethod.POST})
+	public String delete2(@RequestParam("password") String pw, @RequestParam("no") int no) {
+		System.out.println("delete2");
+		System.out.println("컨트롤러 delete2 : "+no+" "+pw);
+		
+		int count = gDao.contentDelete2(no, pw);
+		
+		//비번 실패시 문구 출력
+		if(count == 0) { 
+			return "redirect:/guest/dform?result=0&no="+no;
+		}
+		
+		return "redirect:/guest/list";
+	}
+	
 }

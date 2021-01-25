@@ -1,13 +1,8 @@
 package com.javaex.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import javax.sql.DataSource;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,4 +51,52 @@ public class GuestDao {
 		return count;
 	}
 
+	
+	///////////////////Map 적용////////////////////
+	
+	
+	/*
+	//리스트(불가)
+	public Map<String, Object> getList2(){
+		System.out.println("dao list2");
+		
+		//guestbook.xml에서 resultType="map" 해도 selectList가 List로 만들어줌. map을 모은 List가 돼서 오류남.
+		Map<String, Object> gMap = (Map<String, Object>) sqlSession.selectList("guestbook.selectList2");
+		
+		System.out.println("dao : "+gMap.toString());
+		return gMap;
+	}
+	*/
+	
+	// 내용 등록2 (테스트O)
+	public int contentAdd2(String name, String password, String content) {
+		System.out.println("dao "+name+" "+password+" "+content);
+		
+		Map<String, Object> gMap = new HashMap<String, Object>();
+		gMap.put("name", name);
+		gMap.put("password", password);
+		gMap.put("content", content);
+		
+		System.out.println("dao gMap "+gMap.toString());
+		
+		count = sqlSession.insert("guestbook.insert2", gMap); 
+		
+		return count;
+	}
+	
+	//삭제2 (테스트O)
+	public int contentDelete2(int no, String pw) {
+		System.out.println("dao "+no+" "+pw);
+		
+		Map<String, Object> gMap = new HashMap<String, Object>();
+		gMap.put("no", no);
+		gMap.put("password", pw); //키값이 컬럼명과 다르면 오류남.
+		
+		System.out.println("dao gMap "+gMap.toString());
+		
+		count = sqlSession.delete("guestbook.delete2", gMap);
+		
+		return count;
+	}
+	
 }
