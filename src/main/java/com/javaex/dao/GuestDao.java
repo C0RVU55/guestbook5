@@ -37,7 +37,7 @@ public class GuestDao {
 		System.out.println("dao "+no+" "+password);
 		
 		GuestVo gVo = new GuestVo(no, password);
-		count = sqlSession.insert("guestbook.delete", gVo); 
+		count = sqlSession.delete("guestbook.delete", gVo); 
 	
 		return count;
 	}

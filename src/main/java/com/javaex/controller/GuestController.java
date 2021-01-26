@@ -57,11 +57,11 @@ public class GuestController {
 	
 	//삭제
 	@RequestMapping(value="/delete", method= {RequestMethod.GET, RequestMethod.POST})
-	public String delete(@RequestParam("password") String pw, @RequestParam("no") int no) {
+	public String delete(@RequestParam("password") String password, @RequestParam("no") int no) {
 		System.out.println("delete");
-		System.out.println("컨트롤러 delete : "+no+" "+pw);
+		System.out.println("컨트롤러 delete : "+no+" "+password);
 		
-		int count = gDao.contentDelete(no, pw);
+		int count = gDao.contentDelete(no, password);
 		
 		//비번 실패시 문구 출력
 		if(count == 0) { 
@@ -102,11 +102,11 @@ public class GuestController {
 	
 	//삭제2 (테스트O)
 	@RequestMapping(value="/delete2", method= {RequestMethod.GET, RequestMethod.POST})
-	public String delete2(@RequestParam("password") String pw, @RequestParam("no") int no) {
+	public String delete2(@RequestParam("password") String password, @RequestParam("no") int no) {
 		System.out.println("delete2");
-		System.out.println("컨트롤러 delete2 : "+no+" "+pw);
+		System.out.println("컨트롤러 delete2 : "+no+" "+password);
 		
-		int count = gDao.contentDelete2(no, pw);
+		int count = gDao.contentDelete2(no, password);
 		
 		//비번 실패시 문구 출력
 		if(count == 0) { 
