@@ -33,10 +33,9 @@ public class GuestDao {
 	}
 
 	// 내용 삭제 (조건 2개 달아서 쿼리문 1개로 처리)
-	public int contentDelete(int no, String password) {
-		System.out.println("dao "+no+" "+password);
+	public int contentDelete(GuestVo gVo) {
+		System.out.println("dao contentDelete "+gVo);
 		
-		GuestVo gVo = new GuestVo(no, password);
 		count = sqlSession.delete("guestbook.delete", gVo); 
 	
 		return count;

@@ -57,15 +57,15 @@ public class GuestController {
 	
 	//삭제
 	@RequestMapping(value="/delete", method= {RequestMethod.GET, RequestMethod.POST})
-	public String delete(@RequestParam("password") String password, @RequestParam("no") int no) {
+	public String delete(@ModelAttribute GuestVo gVo) {
 		System.out.println("delete");
-		System.out.println("컨트롤러 delete : "+no+" "+password);
+		System.out.println("컨트롤러 delete : "+gVo);
 		
-		int count = gDao.contentDelete(no, password);
+		int count = gDao.contentDelete(gVo);
 		
 		//비번 실패시 문구 출력
 		if(count == 0) { 
-			return "redirect:/guest/dform?result=0&no="+no;
+			return "redirect:/guest/dform?result=0&no="+gVo.getNo();
 		}
 		
 		return "redirect:/guest/list";
